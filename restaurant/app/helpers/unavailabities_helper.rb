@@ -1,0 +1,2 @@
+module UnavailabitiesHelper
+end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_20_111655) do
+ActiveRecord::Schema.define(version: 2018_07_23_064148) do
 
   create_table "cuisines", force: :cascade do |t|
     t.string "name", limit: 255
@@ -96,9 +96,16 @@ ActiveRecord::Schema.define(version: 2018_07_20_111655) do
     t.string "name", limit: 255
     t.string "email", limit: 255
     t.string "mobile_no", limit: 15
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["mobile_no"], name: "index_users_on_mobile_no", unique: true
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer "sign_in_count", default: 0, null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string "current_sign_in_ip"
+    t.string "last_sign_in_ip"
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
 end

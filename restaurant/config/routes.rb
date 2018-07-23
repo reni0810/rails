@@ -1,8 +1,9 @@
 Rails.application.routes.draw do
+  devise_for :users
   resources :timings
   resources :restaurants
   resources :unavailabities
-  resources :users
+  resources :users 
   resources :facilities
   resources :recipes
   resources :cuisines

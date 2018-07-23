@@ -1,6 +1,6 @@
 class Restaurant < ApplicationRecord
   validates :name,:address,:mobile_no, presence: true
-  validates :mobile_no, format: { with: /[0-9]/, message: "only number"}, length: { maximum: 15 }
+  validates :mobile_no, format: { with: /[0-9]/, message: "only number"}, length: { maximum: 15 } ,uniqueness: true
   has_many :timings , dependent: :destroy
   has_many :restaurants_cuisines, dependent: :destroy
   has_many :cuisines , through: :restaurants_cuisines

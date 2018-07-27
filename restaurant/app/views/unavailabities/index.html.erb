@@ -7,7 +7,6 @@
       <th>Start time</th>
       <th>End time</th>
       <th>Full day</th>
-      <th>Restaurant</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -19,7 +18,6 @@
         <td><%= unavailabity.start_time %></td>
         <td><%= unavailabity.end_time %></td>
         <td><%= unavailabity.full_day %></td>
-        <td><%= unavailabity.restaurant %></td>
         <td><%= link_to 'Show', unavailabity %></td>
         <td><%= link_to 'Edit', edit_unavailabity_path(unavailabity) %></td>
         <td><%= link_to 'Destroy', unavailabity, method: :delete, data: { confirm: 'Are you sure?' } %></td>

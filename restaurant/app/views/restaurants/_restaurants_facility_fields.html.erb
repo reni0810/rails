@@ -1,0 +1,6 @@
+<div class="nested-fields">
+
+  <%= f.select("facility_id",Facility.all.collect{|f| [f.name,f.id] })%>
+
+  <%= link_to_remove_association "remove facility", f %>
+</div>

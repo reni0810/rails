@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_27_045324) do
+ActiveRecord::Schema.define(version: 2018_07_23_132050) do
 
   create_table "cuisines", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
@@ -51,15 +51,6 @@ ActiveRecord::Schema.define(version: 2018_07_27_045324) do
     t.datetime "updated_at", null: false
     t.index ["cuisine_id"], name: "index_restaurants_cuisines_on_cuisine_id"
     t.index ["restaurant_id"], name: "index_restaurants_cuisines_on_restaurant_id"
-  end
-
-  create_table "restaurants_cuisines_recipes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.bigint "restaurants_cuisine_id"
-    t.bigint "recipe_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["recipe_id"], name: "index_restaurants_cuisines_recipes_on_recipe_id"
-    t.index ["restaurants_cuisine_id"], name: "index_restaurants_cuisines_recipes_on_restaurants_cuisine_id"
   end
 
   create_table "restaurants_facilities", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -120,8 +111,6 @@ ActiveRecord::Schema.define(version: 2018_07_27_045324) do
   add_foreign_key "recipes", "cuisines"
   add_foreign_key "restaurants_cuisines", "cuisines"
   add_foreign_key "restaurants_cuisines", "restaurants"
-  add_foreign_key "restaurants_cuisines_recipes", "recipes"
-  add_foreign_key "restaurants_cuisines_recipes", "restaurants_cuisines"
   add_foreign_key "restaurants_facilities", "facilities"
   add_foreign_key "restaurants_facilities", "restaurants"
   add_foreign_key "restaurants_users", "restaurants"

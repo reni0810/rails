@@ -13,6 +13,81 @@
   <%= @restaurant.mobile_no %>
 </p>
 
+<p>
+  <table>
+    <thead>
+      <tr>
+        <th>Day</th>
+        <th>Start time</th>
+        <th>End time</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @restaurant.timings.each do |time| %>
+        <tr>
+            <td><%= time.day %></td>
+            <td><%= time.start_time.strftime("%I:%M %p") %></td>
+            <td><%= time.end_time.strftime("%I:%M %p") %></td>
+        </tr>
+      <%end%>
+    </tbody>
+  </table>
+</p>
+<p>
+  <table>
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Start time</th>
+        <th>End time</th>
+        <th>Full day</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @restaurant.unavailabities.each do |unavailable| %>
+        <tr>
+            <td><%= unavailable.date %></td>
+            <td><%= unavailable.start_time.strftime("%I:%M %p") %></td>
+            <td><%= unavailable.end_time.strftime("%I:%M %p") %></td>
+            <td><%= unavailable.full_day %></td>
+        </tr>
+      <%end%>
+    </tbody>
+  </table>
+</p>
+
+<p>
+  <strong>Cuisines:</strong>
+  <table>
+      <% @restaurant.cuisines.each do |cuisine| %>
+        <tr>
+          <td><%= cuisine.name %></td>
+        </tr>
+      <%end%>
+  </table>
+</p>
+
+<p>
+  <strong>Facilities:</strong>
+  <table>
+    <% @restaurant.facilities.each do |facility| %>
+      <tr>
+        <td><%= facility.name %></td>
+      </tr>
+    <%end%>
+  </table>
+</p>
+
+<p>
+  <strong>users:</strong>
+  <table>
+    <% @restaurant.users.each do |user| %>
+      <tr>
+        <td><%= user.id %></td>
+      </tr>
+    <%end%>
+  </table>
+</p>
+
 <%= link_to 'Edit', edit_restaurant_path(@restaurant) %> |
 <%= link_to 'Back', restaurants_path %>
-<%= link_to 'New Timing', new_timing_path %>

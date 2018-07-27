@@ -10,6 +10,7 @@ class RestaurantsController < ApplicationController
   # GET /restaurants/1
   # GET /restaurants/1.json
   def show
+      @timing = Timing.where(restaurant_id: @restaurant.id)
   end
 
   # GET /restaurants/new
@@ -25,7 +26,6 @@ class RestaurantsController < ApplicationController
   # POST /restaurants.json
   def create
     @restaurant = Restaurant.new(restaurant_params)
-
     respond_to do |format|
       if @restaurant.save
         format.html { redirect_to @restaurant, notice: 'Restaurant was successfully created.' }
@@ -69,6 +69,16 @@ class RestaurantsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def restaurant_params
-      params.require(:restaurant).permit(:name, :address, :mobile_no)
+      user_id = current_user.id
+      params.require(:restaurant).permit(:name, :address, :mobile_no,
+        timings_attributes:
+        [:id, :day, :start_time, :end_time, :_destroy],
+        unavailabities_attributes:
+        [:id, :date, :start_time, :end_time, :full_day, :_destroy],
+        restaurants_cuisines_attributes:
+        [:id,:restaurant_id, :cuisine_id,:_destroy, restaurants_cuisines_recipes_attributes: [:id, :restaurants_cuisine_id, :recipe_id,:_destroy]],
+        restaurants_facilities_attributes:
+        [:id, :restaurant_id, :facility_id,:_destroy]
+
     end
 end

@@ -1,0 +1,12 @@
+<div class="nested-fields">
+  <%= f.label :day %>
+  <%= f.text_field :day %>
+
+  <%= f.label :start_time %>
+  <%= f.time_select :start_time, {ampm: true} %>
+
+  <%= f.label :end_time %>
+  <%= f.time_select :end_time,{ampm: true} %>
+
+  <%= link_to_remove_association "remove time", f %>
+</div>

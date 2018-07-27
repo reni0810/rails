@@ -1,0 +1,16 @@
+<div class="nested-fields">
+  <%= f.label :date %>
+  <%= f.date_select :date, start_year: Time.now.year ,end_year:2030 %>
+
+  <%= f.label :start_time %>
+  <%= f.time_select :start_time, {ampm: true} %>
+
+  <%= f.label :end_time %>
+  <%= f.time_select :end_time,{ampm: true} %>
+  <p>
+    <strong>Full day</strong>
+    <%= f.check_box :full_day %>
+  </p>
+
+  <%= link_to_remove_association "remove date", f %>
+</div>

@@ -4,6 +4,7 @@ class CreateRestaurants < ActiveRecord::Migration[5.2]
       t.string :name, limit: 255
       t.string :address, limit: 1000
       t.string :mobile_no, limit: 15
+      t.references :facility, foreign_key: true
 
       t.timestamps
     end

@@ -1,0 +1,19 @@
+<div class="nested-fields">
+  <%= f.select("cuisine_id",Cuisine.all.collect{|c| [c.name,c.id] })%>
+
+  <%= link_to_remove_association "remove cuisine", f %>
+
+  <div>
+    <p><strong>Recipe:</strong></p>
+    <div class="recipes">
+      <%=f.fields_for :restaurants_cuisines_recipes do |recipe| %>
+        <%= render 'restaurants_cuisines_recipe_fields',f: recipe %>
+      <%end%>
+
+      <div class="links">
+        <%= link_to_add_association 'add recipe', f, :restaurants_cuisines_recipes %>
+      </div>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,4 @@
+<div class="nested-fields">
+  <%= f.select("recipe_id",Recipe.all.collect{|r| [r.name,r.id] })%>
+
+  <%= link_to_remove_association "remove recipe", f %>

@@ -15,8 +15,10 @@ ActiveRecord::Schema.define(version: 2018_07_27_045324) do
   create_table "cuisines", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "name"
     t.text "description"
+    t.bigint "restaurant_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["restaurant_id"], name: "index_cuisines_on_restaurant_id"
   end
 
   create_table "facilities", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -39,9 +41,11 @@ ActiveRecord::Schema.define(version: 2018_07_27_045324) do
     t.string "name"
     t.string "address", limit: 1000
     t.string "mobile_no", limit: 15
+    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["mobile_no"], name: "index_restaurants_on_mobile_no", unique: true
+    t.index ["user_id"], name: "index_restaurants_on_user_id"
   end
 
   create_table "restaurants_cuisines", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -117,7 +121,9 @@ ActiveRecord::Schema.define(version: 2018_07_27_045324) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "cuisines", "restaurants"
   add_foreign_key "recipes", "cuisines"
+  add_foreign_key "restaurants", "users"
   add_foreign_key "restaurants_cuisines", "cuisines"
   add_foreign_key "restaurants_cuisines", "restaurants"
   add_foreign_key "restaurants_cuisines_recipes", "recipes"

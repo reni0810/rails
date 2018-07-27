@@ -10,6 +10,5 @@ class User < ApplicationRecord
   validates :mobile_no,presence: true, format: { with: /[0-9]/, message: "only number"}, length: { maximum: 15 }, uniqueness: true
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
-  has_many :restaurants_users, dependent: :destroy
-  has_many :restaurants , through: :restaurants_users
+  has_many :restaurants , dependent: :destroy
 end

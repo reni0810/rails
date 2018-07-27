@@ -78,16 +78,6 @@
   </table>
 </p>
 
-<p>
-  <strong>users:</strong>
-  <table>
-    <% @restaurant.users.each do |user| %>
-      <tr>
-        <td><%= user.id %></td>
-      </tr>
-    <%end%>
-  </table>
-</p>
 
 <%= link_to 'Edit', edit_restaurant_path(@restaurant) %> |
 <%= link_to 'Back', restaurants_path %>

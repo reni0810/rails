@@ -1,12 +1,22 @@
-<div class="nested-fields">
-  <%= f.label :day %>
-  <%= f.text_field :day %>
+<div class="nested-fields container">
+  <div class="form-group form-inline">
+    <%= f.label :day %>
+    <%= f.text_field :day ,class: "form-control" %>
+  </div>
 
-  <%= f.label :start_time %>
-  <%= f.time_select :start_time, {ampm: true} %>
-
-  <%= f.label :end_time %>
-  <%= f.time_select :end_time,{ampm: true} %>
-
+  <div class="form-inline">
+    <table class="table-responsive">
+      <tr>
+        <td>
+          <%= f.label :start_time %>
+          <%= f.time_select :start_time, {ampm: true}, class: "form-control" %>
+        </td>
+        <td>
+          <%= f.label :end_time %>
+          <%= f.time_select :end_time,{ampm: true}, class: "form-control" %>
+        </td>
+      </tr>
+    </table>
+  </div>
   <%= link_to_remove_association "remove time", f %>
 </div>

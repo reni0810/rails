@@ -7,7 +7,7 @@
           <h4 class="card-header"><%= restaurant.name %></h4>
           <div class="card-body">
             <% if restaurant.picture.attached? %>
-              <%= image_tag restaurant.picture.variant(resize: "500x500"),class: "img-responsive" %>
+              <%= image_tag restaurant.picture.variant(resize: "500x500") %>
             <% end %>
             <p class="card-text">
               <div class="row container">
@@ -19,7 +19,6 @@
               </div>
               </div>
             </p>
-
             <p class="card-text">
               <div class="row container">
                 <div class="col-lg-4 mb-4">
@@ -30,7 +29,6 @@
                 </div>
               </div>
             </p>
-
             <p class="card-text">
               <div class="row container">
                 <div class="col-lg-4 mb-4">
@@ -45,7 +43,6 @@
                 </div>
               </div>
             </p>
-
             <p class="card-text">
               <div class="row container">
                 <div class="col-lg-4 mb-4">
@@ -87,8 +84,8 @@
                     </div>
                     <div class="col">
                       <p class="card-text">
-                            <%= facility.name %> :
-                            <%= facility.description %>
+                        <%= facility.name %> :
+                        <%= facility.description %>
                       </p>
                     </div>
                   <%end%>
@@ -108,5 +105,4 @@
       </div>
     <%end%>
   </div>
-  <br>
 </div>

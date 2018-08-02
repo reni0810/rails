@@ -1,0 +1,66 @@
+body {
+  font-family: 'Lora', 'Times New Roman', serif;
+  font-size: 20px;
+  padding-top: 54px;
+}
+@media (min-width: 992px) {
+  body {
+    padding-top: 60px;
+  }
+}
+.carousel-item {
+  height: 65vh;
+  min-height: 300px;
+  background: no-repeat center center scroll;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+#mynav{
+  height: 60px
+}
+#mynav .navbar-brand {
+  color: #88bf3b;
+  font-size: 30px;
+  font-family: 'Kaushan Script', 'Helvetica Neue', Helvetica, Arial, cursive;
+}
+#mynav .navbar-nav .nav-item.active .nav-link, #mynav .navbar-nav .nav-item .nav-link:hover {
+  color: #88bf3b;
+}
+
+#mynav .navbar-nav .nav-item .nav-link {
+  color: white;
+}
+.carousel-item .fill {
+  filter: brightness(0.4);
+}
+.carousel-item .carousel-caption a{
+   color: white;
+   font-size: 60px;
+}
+.card-footer{
+  text-align: center;
+}
+.card-header .card-title{
+    color: #007bff;
+    font-size: 30px;
+}
+.card.h-100{
+  border-radius: 20px;
+}
+.card.h-100 .card-header{
+  background-color: #88bf3b;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+#mynav .navbar-nav .nav-item.dropdown .dropdown-menu .dropdown-item
+{
+  font-size: 20px;
+}
+#mynav .navbar-nav .search{
+  border-radius: 15px;
+}
+#mynav .navbar-nav .btn{
+  border-radius: 15px;
+}

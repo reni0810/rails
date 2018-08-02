@@ -1,83 +1,106 @@
-<p>
-  <strong>Name:</strong>
-  <%= @restaurant.name %>
-</p>
+<div class="container">
+  <h1 class="display-3">Restaurants</h1>
+  <div class="row">
+    <div class="col-lg-6 mb-6">
+      <div class="card h-100">
+        <h4 class="card-header"><%= @restaurant.name %></h4>
+        <div class="card-body">
+          <% if @restaurant.picture.attached? %>
+            <%= image_tag @restaurant.picture.variant(resize: "500x500") %>
+          <% end %>
+          <p class="card-text">
+            <div class="row container">
+              <div class="col-lg-4 mb-4">
+                <strong class="text-success">Adress:</strong>
+              </div>
+              <div class="col">
+                <%= @restaurant.address %>
+              </div>
+            </div>
+          </p>
 
-<p>
-  <strong>Address:</strong>
-  <%= @restaurant.address %>
-</p>
+          <p class="card-text">
+            <div class="row container">
+              <div class="col-lg-4 mb-4">
+                <strong class="text-success">Mobile_no:</strong>
+              </div>
+              <div class="col">
+                <%= @restaurant.mobile_no %>
+              </div>
+            </div>
+          </p>
 
-<p>
-  <strong>Mobile no:</strong>
-  <%= @restaurant.mobile_no %>
-</p>
+          <p class="card-text">
+            <div class="row container">
+              <div class="col-lg-4 mb-4">
+                <strong class="text-success">Timing:</strong>
+              </div>
+              <div class="col">
+                <% @restaurant.timings.each do |timing| %>
+                  <p class="card-text"><%= timing.day %>:
+                    <%= timing.start_time.strftime('%H:%M %p')%> to <%= timing.end_time.strftime('%H:%M %p')%>
+                  </p>
+                <%end%>
+              </div>
+            </div>
+          </p>
 
-<p>
-  <table>
-    <thead>
-      <tr>
-        <th>Day</th>
-        <th>Start time</th>
-        <th>End time</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @restaurant.timings.each do |time| %>
-        <tr>
-            <td><%= time.day %></td>
-            <td><%= time.start_time.strftime("%I:%M %p") %></td>
-            <td><%= time.end_time.strftime("%I:%M %p") %></td>
-        </tr>
-      <%end%>
-    </tbody>
-  </table>
-</p>
-<p>
-  <table>
-    <thead>
-      <tr>
-        <th>Date</th>
-        <th>Start time</th>
-        <th>End time</th>
-        <th>Full day</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @restaurant.unavailabities.each do |unavailable| %>
-        <tr>
-            <td><%= unavailable.date %></td>
-            <td><%= unavailable.start_time.strftime("%I:%M %p") %></td>
-            <td><%= unavailable.end_time.strftime("%I:%M %p") %></td>
-            <td><%= unavailable.full_day %></td>
-        </tr>
-      <%end%>
-    </tbody>
-  </table>
-</p>
+          <p class="card-text">
+            <div class="row container">
+              <div class="col-lg-4 mb-4">
+                <strong class="text-success">Cuisines & recipes:</strong>
+              </div>
+              <div class="col">
+                <% @restaurant.cuisines.each do |cuisines| %>
+                  <p class="card-text"><%= cuisines.name%> :
+                    <% cuisines.recipes.each do |recipes| %>
+                      <%= recipes.name %></br>
+                    <%end%>
+                  </p>
+                <%end%>
+              </div>
+            </div>
+          </p>
 
-<p>
-  <strong>Cuisines:</strong>
-  <table>
-      <% @restaurant.cuisines.each do |cuisine| %>
-        <tr>
-          <td><%= cuisine.name %></td>
-        </tr>
-      <%end%>
-  </table>
-</p>
+          <p class="card-text">
+            <div class="row container">
+              <div class="col-lg-4 mb-4">
+                <strong class="text-success">unavailable Date:</strong>
+              </div>
+              <div class="col">
+                <% @restaurant. unavailabities.each do |unavailable| %>
+                  <p class="card-text"><%= unavailable.date %></br>Timing:
+                    <%= unavailable.start_time.strftime('%H:%M %p')%> to <%= unavailable.end_time.strftime('%H:%M %p')%>
+                  </p>
+                <%end%>
+              </div>
+            </div>
+          </p>
 
-<p>
-  <strong>Facilities:</strong>
-  <table>
-    <% @restaurant.facilities.each do |facility| %>
-      <tr>
-        <td><%= facility.name %></td>
-      </tr>
-    <%end%>
-  </table>
-</p>
-
-
-<%= link_to 'Edit', edit_restaurant_path(@restaurant) %> |
-<%= link_to 'Back', restaurants_path %>
+          <p class="card-text">
+            <div class="row container">
+              <% @restaurant.facilities.each do |facility| %>
+                <% if facility.present? %>
+                  <div class="col-lg-4 mb-4">
+                    <strong class="text-success">Facilities:</strong>
+                  </div>
+                  <div class="col">
+                    <p class="card-text">
+                      <%= facility.name %> :
+                      <%= facility.description %>
+                    </p>
+                  </div>
+                <%end%>
+              <%end%>
+            </div>
+          </p>
+          
+        </div>
+        <div class="card-footer">
+          <%= link_to 'Edit', edit_restaurant_path(@restaurant) %> |
+          <%= link_to 'Back', restaurants_path %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,14 +1,26 @@
-<div class="nested-fields">
+<div class="nested-fields container">
   <%= f.label :date %>
-  <%= f.date_select :date, start_year: Time.now.year ,end_year:2030 %>
+  <div class="form-inline">
+      <%= f.date_select :date,{start_year: Time.now.year,end_year:2030},{class: "form-control"} %>
+  </div></br>
+  <div class="form-inline">
+    <table class="table-responsive">
+      <tr>
+        <td>
+          <%= f.label :start_time %>
+          <%= f.time_select :start_time, {ampm: true},class: "form-control" %>
+        </td>
+        <td>
+          <%= f.label :end_time %>
+          <%= f.time_select :end_time,{ampm: true}, class: "form-control" %>
+        </td>
+      </tr>
+    </table>
+  </div>
 
-  <%= f.label :start_time %>
-  <%= f.time_select :start_time, {ampm: true} %>
-
-  <%= f.label :end_time %>
-  <%= f.time_select :end_time,{ampm: true} %>
   <p>
-    <strong>Full day</strong>
+  </br>
+    Full day
     <%= f.check_box :full_day %>
   </p>
 

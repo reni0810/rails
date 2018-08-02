@@ -4,13 +4,16 @@ class RestaurantsController < ApplicationController
   # GET /restaurants
   # GET /restaurants.json
   def index
-    @restaurants = Restaurant.all
+    if params[:search]
+      @restaurants = Restaurant.where('name LIKE ?', "%#{params[:search]}%")
+    else
+      @restaurants = Restaurant.all
+    end
   end
 
   # GET /restaurants/1
   # GET /restaurants/1.json
   def show
-      @timing = Timing.where(restaurant_id: @restaurant.id)
   end
 
   # GET /restaurants/new
@@ -70,7 +73,7 @@ class RestaurantsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def restaurant_params
-      params.require(:restaurant).permit(:name, :address, :mobile_no,
+      params.require(:restaurant).permit(:name, :address, :mobile_no,:picture,
         timings_attributes:
         [:id, :day, :start_time, :end_time, :_destroy],
         unavailabities_attributes:

@@ -9,11 +9,9 @@
   </head>
 
   <body>
-    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark is-visible", id="mynav">
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top", id="mynav">
       <div class= "container">
-        <div class="navbar-brand">
-          <strong>Restaurant</strong>
-        </div>
+        <div class="navbar-brand"><strong>Restaurant</strong></div>
 
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -22,15 +20,11 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
             <% if user_signed_in? %>
-              <li>
-                <div class="search-container">
+              <li class="nav-item">
                   <%= form_with(url: restaurants_path,method: 'get' ,local: true) do |f| %>
                     <%= f.text_field :search, id: :search, class: "search"%>
-                    <%= f.button :submit, class: "btn btn-default" do%>
-                      <span class="glyphicon glyphicon-plus">search</span>
-                    <%end%>
+                    <%= f.button :submit, class: "btn btn-default"%>
                   <%end%>
-                </div>
               </li>
               <li class="nav-item active">
                 <%= link_to 'Home', restaurants_path, :class => "nav-link" %>
@@ -102,7 +96,7 @@
         <a class="carousel-control-next" href="#slides" role="button" data-slide="next">
           <span class="carousel-control-next-icon" aria-hidden="true"></span>
           <span class="sr-only">Next</span>
-        </a>        
+        </a>
       </div>
     </header>
 
@@ -113,7 +107,7 @@
       <p class="alert alert-danger"><%= alert %></p>
     <% end %>
     <%= yield %>
-    
+
     <footer class="py-4 bg-dark">
         <p class="m-0 text-center text-white">Copyright &copy; Restaurant 2018</p>
     </footer>

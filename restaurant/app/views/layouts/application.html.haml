@@ -20,7 +20,7 @@
               %li.nav-item
                 = form_with(url: restaurants_path,method: 'get' ,local: true) do |f|
                   = f.text_field :search, id: :search, class: "search"
-                  = f.button :submit, class: "btn btn-default"
+                  = f.submit "search", class: "btn btn-default"
               %li.nav-item.active
                 = link_to 'Home', restaurants_path, :class => "nav-link"
               %li.nav-item.dropdown

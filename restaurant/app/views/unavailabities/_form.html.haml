@@ -1,0 +1,23 @@
+= form_with(model: unavailabity, local: true) do |form|
+  - if unavailabity.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(unavailabity.errors.count, "error")
+        prohibited this unavailabity from being saved:
+      %ul
+        - unavailabity.errors.full_messages.each do |message|
+          %li= message
+  .field
+    = form.label :date
+    = form.date_select :date
+  .field
+    = form.label :start_time
+    = form.time_select :start_time
+  .field
+    = form.label :end_time
+    = form.time_select :end_time
+  .field
+    = form.label :full_day
+    = form.check_box :full_day
+  .actions
+    = form.submit

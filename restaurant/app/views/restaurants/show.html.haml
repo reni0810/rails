@@ -1,0 +1,66 @@
+.container
+  %h1.display-3 Restaurants
+  .row
+    .col-lg-6.mb-6
+      .card.h-100
+        %h4.card-header= @restaurant.name
+        .card-body
+          - if @restaurant.picture.attached?
+            = image_tag @restaurant.picture.variant(resize: "500x500")
+          %p.card-text
+            .row.container
+              .col-lg-4.mb-4
+                %strong.text-success Adress:
+              .col
+                = @restaurant.address
+          %p.card-text
+            .row.container
+              .col-lg-4.mb-4
+                %strong.text-success Mobile_no:
+              .col
+                = @restaurant.mobile_no
+          %p.card-text
+            .row.container
+              .col-lg-4.mb-4
+                %strong.text-success Timing:
+              .col
+                - @restaurant.timings.each do |timing|
+                  %p.card-text
+                    = timing.day
+                    \:
+                    \#{timing.start_time.strftime('%H:%M %p')} to #{timing.end_time.strftime('%H:%M %p')}
+          %p.card-text
+            .row.container
+              .col-lg-4.mb-4
+                %strong.text-success Cuisines  recipes:
+              .col
+                - @restaurant.cuisines.each do |cuisines|
+                  %p.card-text
+                    = cuisines.name
+                    \:
+                    - cuisines.recipes.each do |recipes|
+                      = recipes.name
+          %p.card-text
+            .row.container
+              .col-lg-4.mb-4
+                %strong.text-success unavailable Date:
+              .col
+                - @restaurant. unavailabities.each do |unavailable|
+                  %p.card-text>= unavailable.date
+                  Timing:
+                  \#{unavailable.start_time.strftime('%H:%M %p')} to #{unavailable.end_time.strftime('%H:%M %p')}
+          %p.card-text
+            .row.container
+              - @restaurant.facilities.each do |facility|
+                - if facility.present?
+                  .col-lg-4.mb-4
+                    %strong.text-success Facilities:
+                  .col
+                    %p.card-text
+                      = facility.name
+                      \:
+                      \#{facility.description}
+        .card-footer
+          = link_to 'Edit', edit_restaurant_path(@restaurant)
+          |
+          \#{link_to 'Back', restaurants_path}

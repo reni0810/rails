@@ -1,0 +1,21 @@
+%h1 Timings
+%table
+  %thead
+    %tr
+      %th Restaurant
+      %th Day
+      %th Start time
+      %th End time
+      %th{:colspan => "3"}
+  %tbody
+    - @timings.each do |timing|
+      %tr
+        %td= timing.restaurant.name
+        %td= timing.day
+        %td= timing.start_time.strftime('%H:%M %p')
+        %td= timing.end_time.strftime('%H:%M %p')
+        %td= link_to 'Show', timing
+        %td= link_to 'Edit', edit_timing_path(timing)
+        %td= link_to 'Destroy', timing, method: :delete, data: { confirm: 'Are you sure?' }
+%br/
+= link_to 'New Timing', new_timing_path

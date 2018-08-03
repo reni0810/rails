@@ -1,0 +1,3 @@
+.nested-fields
+  = f.select("recipe_id",Recipe.all.collect{|r| [r.name,r.id] },{},{class: "form-control"})
+  = link_to_remove_association "remove recipe", f

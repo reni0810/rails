@@ -1,0 +1,17 @@
+%h1 Cuisines
+%table
+  %thead
+    %tr
+      %th Name
+      %th Description
+      %th{:colspan => "3"}
+  %tbody
+    - @cuisines.each do |cuisine|
+      %tr
+        %td= cuisine.name
+        %td= cuisine.description
+        %td= link_to 'Show', cuisine
+        %td= link_to 'Edit', edit_cuisine_path(cuisine)
+        %td= link_to 'Destroy', cuisine, method: :delete, data: { confirm: 'Are you sure?' }
+%br/
+= link_to 'New Cuisine', new_cuisine_path

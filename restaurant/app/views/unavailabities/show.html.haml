@@ -1,0 +1,15 @@
+%p
+  %strong Date:
+  = @unavailabity.date
+%p
+  %strong Start time:
+  = @unavailabity.start_time
+%p
+  %strong End time:
+  = @unavailabity.end_time
+%p
+  %strong Full day:
+  = @unavailabity.full_day
+= link_to 'Edit', edit_unavailabity_path(@unavailabity)
+|
+= link_to 'Back', unavailabities_path

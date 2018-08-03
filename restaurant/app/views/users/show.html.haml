@@ -1,0 +1,12 @@
+%p
+  %strong Name:
+  = @user.name
+%p
+  %strong Email:
+  = @user.email
+%p
+  %strong Mobile no:
+  = @user.mobile_no
+= link_to 'Edit',edit_user_registration_path(@user)
+|
+= link_to 'Back', users_path

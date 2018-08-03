@@ -1,0 +1,65 @@
+= form_with(model: restaurant,local: true) do |form|
+  - if restaurant.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(restaurant.errors.count, "error")
+        prohibited this restaurant from being saved:
+      %ul
+        - restaurant.errors.full_messages.each do |message|
+          %li= message
+  .container
+    .row
+      .col-sm-13.col-md-11.col-lg-9.mx-auto
+        .card.my-5
+          .card-header
+            %h5.card-title.text-center Restaurant
+          .card-body
+            .row
+              .col-lg-6.mb-6
+                %strong= form.label :name
+                = form.text_field :name,class: "form-control"
+              .col-lg-6.mb-6
+                %strong= form.label :mobile_no
+                = form.text_field :mobile_no, class: "form-control"
+            .address
+              %strong= form.label :address
+              = form.text_field :address,class: "form-control"
+            .timing
+              %p
+                %strong Time:
+              .time
+                = form.fields_for :timings do |time|
+                  = render 'timing_fields',f: time
+                .links
+                  = link_to_add_association 'add time', form, :timings ,class: "text-success"
+            .unavailable
+              %p
+                %strong unavailable dates:
+              .time
+                = form.fields_for :unavailabities do |unavailable|
+                  = render 'unavailabity_fields',f: unavailable
+                .links
+                  = link_to_add_association 'add unavailable day', form, :unavailabities,class: "text-success"
+            .cusine
+              %p
+                %strong Cuisine:
+              .cuisine
+                = form.fields_for :restaurants_cuisines do |cuisine|
+                  = render 'restaurants_cuisine_fields',f: cuisine
+                .links
+                  = link_to_add_association 'add cuisine', form, :restaurants_cuisines,class: "text-success"
+            .facility
+              %p
+                %strong Facility:
+              .facility
+                = form.fields_for :restaurants_facilities do |facility|
+                  = render 'restaurants_facility_fields',f: facility
+                .links
+                  = link_to_add_association 'add facility', form, :restaurants_facilities,class: "text-success"
+            .field
+              %strong= form.label :picture
+              %br/
+              = form.file_field :picture
+            .actions
+              %br/
+              = form.button "Create" ,class: "btn btn-lg btn-success btn-block"

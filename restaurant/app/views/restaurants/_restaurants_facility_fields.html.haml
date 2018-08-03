@@ -1,0 +1,3 @@
+.nested-fields
+  = f.select("facility_id",Facility.all.collect{|f| [f.name,f.id] },{},{class: "form-control"})
+  = link_to_remove_association "remove facility", f

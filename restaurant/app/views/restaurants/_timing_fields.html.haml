@@ -1,0 +1,14 @@
+.nested-fields.container
+  .form-group.form-inline
+    = f.label :day
+    = f.text_field :day ,class: "form-control"
+  .form-inline
+    %table.table-responsive
+      %tr
+        %td
+          = f.label :start_time
+          = f.time_select :start_time, {ampm: true}, class: "form-control"
+        %td
+          = f.label :end_time
+          = f.time_select :end_time,{ampm: true}, class: "form-control"
+  = link_to_remove_association "remove time", f

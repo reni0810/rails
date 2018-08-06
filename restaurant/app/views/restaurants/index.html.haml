@@ -71,5 +71,6 @@
                 .col
                   = link_to 'Destroy', restaurant, method: :delete, data: { confirm: 'Are you sure?' }
   %br
-  = paginate @restaurants
+  .pagination.justify-content-center
+    = paginate @restaurants
 

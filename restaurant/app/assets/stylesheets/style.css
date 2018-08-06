@@ -8,6 +8,7 @@ body {
     padding-top: 56px;
   }
 }
+
 .carousel-item {
   height: 65vh;
   min-height: 300px;
@@ -69,7 +70,4 @@ body {
   border: none;
   width: 80px;
   text-align: center;
-}
-.pagination{
-  padding-left: 250px;
 }

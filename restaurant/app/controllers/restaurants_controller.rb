@@ -9,6 +9,7 @@ class RestaurantsController < ApplicationController
     else
       @restaurants = Restaurant.all
     end
+    @restaurants = @restaurants.order(:name).page(params[:page]).per(1)
   end
 
   # GET /restaurants/1

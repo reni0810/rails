@@ -62,6 +62,12 @@
                         \:
                         \#{facility.description}
           .card-footer
-            = link_to 'Show', restaurant 
-            = link_to 'Edit', edit_restaurant_path(restaurant)
-            = link_to 'Destroy', restaurant, method: :delete, data: { confirm: 'Are you sure?' }
+            .row
+              .col
+                = link_to 'Show', restaurant
+              .col
+                = link_to 'Edit', edit_restaurant_path(restaurant)
+              .col
+                = link_to 'Destroy', restaurant, method: :delete, data: { confirm: 'Are you sure?' }
+  %br
+  = paginate @restaurants

@@ -61,8 +61,15 @@
                       = facility.name
                       \:
                       \#{facility.description}
-        - if restaurant.user_id == current_user.id
-          .card-footer
-            = link_to 'Show', restaurant ,class: btn btn-class
-            = link_to 'Edit', edit_restaurant_path(restaurant),class: btn btn-class
-            = link_to 'Destroy', restaurant, method: :delete, data: { confirm: 'Are you sure?' },class: btn btn-class
+          - if restaurant.user_id == current_user.id
+            .card-footer
+              .row
+                .col
+                  = link_to 'Show', restaurant
+                .col
+                  = link_to 'Edit', edit_restaurant_path(restaurant)
+                .col
+                  = link_to 'Destroy', restaurant, method: :delete, data: { confirm: 'Are you sure?' }
+  %br
+  = paginate @restaurants
+

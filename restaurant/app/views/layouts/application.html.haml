@@ -16,11 +16,7 @@
           %span.navbar-toggler-icon
         #navbarResponsive.collapse.navbar-collapse
           %ul.navbar-nav.ml-auto
-            - if user_signed_in?
-              %li.nav-item
-                = form_with(url: restaurants_path,method: 'get' ,local: true) do |f|
-                  = f.text_field :search, id: :search, class: "search"
-                  = f.submit "search", class: "btn btn-default"
+            - if user_signed_in?               
               %li.nav-item.active
                 = link_to 'Home', restaurants_path, :class => "nav-link"
               %li.nav-item.dropdown

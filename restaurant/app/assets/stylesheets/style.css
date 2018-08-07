@@ -8,7 +8,6 @@ body {
     padding-top: 56px;
   }
 }
-
 .carousel-item {
   height: 65vh;
   min-height: 300px;
@@ -56,12 +55,6 @@ body {
 #mynav .navbar-nav .nav-item.dropdown .dropdown-menu .dropdown-item
 {
   font-size: 20px;
-}
-#mynav .navbar-nav .search{
-  border-radius: 15px;
-}
-#mynav .navbar-nav .btn{
-  border-radius: 15px;
 }
 .pagination .page-item.active .page-link{
   background-color:#88bf3b;

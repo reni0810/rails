@@ -4,8 +4,15 @@ class RestaurantsController < ApplicationController
   # GET /restaurants
   # GET /restaurants.json
   def index
-    if params[:search]
-      @restaurants = Restaurant.where('name LIKE :find OR address LIKE :find', find:  "%#{params[:search]}%")
+    if params[:search].present? || params[:cuisine_id].present? ||  params[:facility_id].present?
+      @restaurants = Restaurant.joins(:cuisines,:facilities, :recipes)
+      .where('restaurants.name LIKE ? OR restaurants.address LIKE ?
+      AND restaurants_cuisines.cuisine_id LIKE ?
+      AND restaurants_facilities.id LIKE ?
+      AND restaurants_cuisines_recipes.recipe_id LIKE ? ',
+      "%#{params[:search]}%", "%#{params[:search]}%", 
+      "%#{params[:cuisine_id]}%", 
+      "%#{params[:facility_id]}%" )
     else
       @restaurants = Restaurant.all
     end

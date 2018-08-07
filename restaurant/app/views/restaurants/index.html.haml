@@ -2,9 +2,9 @@
   %h1.display-3 Restaurants
   .form-inline
     = form_with(url: restaurants_path,method: 'get' ,local: true) do |f|
-      =f.select("cuisine_id",Cuisine.all.collect{|c| [c.name,c.id] },{include_blank: "select cuisines"},{class: "form-control"})
-      = f.select("facility_id",Facility.all.collect{|f| [f.name,f.id] },{include_blank:"select facility"},{class: "form-control"})
-      = f.text_field :search, id: :search, class: "search form-control"
+      =f.select("cuisine_id",Cuisine.all.collect{ |c| [c.name,c.id] },{include_blank: "select cuisines", selected: @search_cuisine },{ class: "form-control" })
+      = f.select("facility_id",Facility.all.collect{ |f| [f.name,f.id] },{include_blank:"select facility", selected: @search_facility },{ class: "form-control" })
+      = f.text_field :search, id: :search, value: params[:search], class: "search form-control", placeholder: "search"
       = f.submit "search", class: "btn btn-success"
   %br
   -if @restaurants.empty?

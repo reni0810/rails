@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
   devise_for :users , skip: [:sessions, :registrations, :password]
   devise_scope :user do
-    root to: "devise/sessions#new"
     get '/login',      to: 'devise/sessions#new',         as: :new_user_session
     post '/login',     to: 'devise/sessions#create',      as: :user_session
     delete '/logout',  to: 'devise/sessions#destroy',     as: :destroy_user_session
@@ -18,6 +17,7 @@ Rails.application.routes.draw do
     patch '/forgot-password',to: 'devise/passwords#update', as: :update_user_password
 
   end
+  root to: "restaurants#index"
   resources :timings
   resources :restaurants
   resources :unavailabities
@@ -25,7 +25,8 @@ Rails.application.routes.draw do
   resources :facilities
   resources :recipes
   resources :cuisines
-  resources :user_restaurants
-  default_url_options host: "localhost:3000"
+  resources :user_restaurants,  only: [:index]
+  get "/404", to: "application#page_error"
+  
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

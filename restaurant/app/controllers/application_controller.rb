@@ -9,6 +9,12 @@ class ApplicationController < ActionController::Base
     end	
   end
 
+  def internal_error
+		respond_to do |format|
+      format.html { render file:'public/500.html', status: 500 }
+      format.all  { render nothing: true, status: 500 }
+    end	
+  end
 
   protected
 

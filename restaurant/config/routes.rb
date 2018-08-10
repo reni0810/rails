@@ -27,6 +27,6 @@ Rails.application.routes.draw do
   resources :cuisines
   resources :user_restaurants,  only: [:index]
   get "/404", to: "application#page_error"
-  
+  get "/500", to: "application#internal_error"
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

@@ -14,12 +14,14 @@ Rails.application.routes.draw do
     get '/forgot-password',  to: 'devise/passwords#new',    as: :new_user_password
     post '/forgot-password', to: 'devise/passwords#create', as: :user_password
     get '/edit-password',    to: 'devise/passwords#edit',   as: :edit_user_password
-    patch '/forgot-password',to: 'devise/passwords#update', as: :update_user_password
+    put '/forgot-password',  to: 'devise/passwords#update', as: :password_path
 
   end
   root to: "restaurants#index"
   resources :timings
-  resources :restaurants
+  resources :restaurants, path: "restaurant_details" do
+    get :index, on: :collection
+  end
   resources :unavailabities
   resources :users
   resources :facilities

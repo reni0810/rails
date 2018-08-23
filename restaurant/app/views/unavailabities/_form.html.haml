@@ -7,17 +7,32 @@
       %ul
         - unavailabity.errors.full_messages.each do |message|
           %li= message
-  .field
-    = form.label :date
-    = form.date_select :date
-  .field
-    = form.label :start_time
-    = form.time_select :start_time
-  .field
-    = form.label :end_time
-    = form.time_select :end_time
-  .field
-    = form.label :full_day
-    = form.check_box :full_day
-  .actions
-    = form.submit
+  .container
+    .row
+      .col-sm-9.col-md-7.col-lg-5.mx-auto
+        .card.my-5
+          .card-header
+            %h5.card-title.text-center Unavailable day
+          .card-body
+            %strong= form.label :date
+            =form.text_field :date, class: "form-control", id: "datepicker", placeholder: "select unavailable date"
+            .form-inline
+              .row
+                .col 
+                  = form.label :start_time
+                  = form.time_select :start_time, {ampm: true}, class: "form-control"
+                .col
+                  = form.label :end_time
+                  = form.time_select :end_time,{ampm: true}, class: "form-control"
+            %strong= form.label :Full_day
+            = form.check_box :full_day
+            .actions
+              %br/
+              = form.button "Create" ,class: "btn btn-lg btn-success btn-block"
+    
+
+
+
+
+
+

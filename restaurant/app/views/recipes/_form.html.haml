@@ -7,14 +7,23 @@
       %ul
         - recipe.errors.full_messages.each do |message|
           %li= message
-  .field
-    = form.label :cuisine_id
-    = form.select("cuisine_id", Cuisine.all.collect {|r| [r.name,r.id] })
-  .field
-    = form.label :name
-    = form.text_field :name
-  .field
-    = form.label :description
-    = form.text_area :description
-  .actions
-    = form.submit
+  .container
+    .row
+      .col-sm-11.col-md-9.col-lg-7.mx-auto
+        .card.my-5
+          .card-header
+            %h5.card-title.text-center Recipes
+          .card-body
+            %strong= form.label :cuisine
+            = form.select("cuisine_id", Cuisine.all.collect {|r| [r.name,r.id] },{},{class: "form-control"})
+
+            %strong= form.label :name
+            = form.text_field :name,class: "form-control"
+
+            %strong= form.label :description
+            = form.text_field :description, class: "form-control"
+            .actions
+              %br/
+              = form.button "Create" ,class: "btn btn-lg btn-success btn-block"
+
+

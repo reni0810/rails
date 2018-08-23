@@ -6,7 +6,7 @@
         %h4.card-header= @restaurant.name
         .card-body
           - if @restaurant.picture.attached?
-            = image_tag @restaurant.picture.variant(resize: "500x500")
+            = image_tag @restaurant.picture, class: 'img-responsivev img-fluid'
           %p.card-text
             .row.container
               .col-lg-4.mb-4

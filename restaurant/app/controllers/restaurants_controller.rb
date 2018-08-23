@@ -4,14 +4,36 @@ class RestaurantsController < ApplicationController
   # GET /restaurants
   # GET /restaurants.json
   def index
-    if params[:search].present? || params[:cuisine_id].present? || params[:facility_id].present?
+    if params[:search].present? || params[:cuisine_id].present? || params[:facility_id].present? || params[:date].present? 
       @search_cuisine = params[:cuisine_id]
       @search_facility = params[:facility_id]
-      @restaurants = Restaurant.joins(:cuisines,:facilities).where('(restaurants.name LIKE ? OR restaurants.address LIKE ?) AND restaurants_cuisines.cuisine_id LIKE ? AND restaurants_facilities.facility_id LIKE ?', "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:cuisine_id]}%", "%#{params[:facility_id]}%" )
+      @restaurants = Restaurant.joins(:cuisines,:facilities,:unavailabities)
+                    .where('(restaurants.name LIKE ? OR restaurants.address LIKE ?) AND restaurants_cuisines.cuisine_id LIKE ? AND restaurants_facilities.facility_id LIKE ? AND unavailabities.date LIKE ?', "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:cuisine_id]}%","%#{params[:facility_id]}%", "%#{params[:date]}%" )
     else
       @restaurants = Restaurant.all
     end
-    @restaurants = @restaurants.order(:name).page(params[:page]).per(1)
+    @restaurants = @restaurants.order(:name).page(params[:page]).per(2)
+  end
+
+  def select_recipe
+    puts "*****************************************************************"
+
+    @cuisine = Cuisine.find_by(id: params[:cuisine_id])
+    data = Recipe.where(cuisine_id: @cuisine.id).uniq
+    render json: data
+  end
+
+  def references
+    puts "*****************************************************************"
+    references =  Restaurant.all.pluck(:name)
+    render json: references, status: :ok
+  end
+
+  def send_mail
+    if params[:send_mail]
+      @user_mail = params[:send_mail]
+      SendRestaurantMailer.with(user: @user_mail).restaurant.deliver_later  
+    end
   end
 
   # GET /restaurants/1
@@ -71,7 +93,8 @@ class RestaurantsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_restaurant
-      @restaurant = Restaurant.find(params[:id])
+      @restaurant = Restaurant.find_by_id(params[:id])
+      redirect_to restaurants_path , notice: "restaurant not found" if @restaurant.blank?
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

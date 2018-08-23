@@ -4,7 +4,7 @@ class UnavailabitiesController < ApplicationController
   # GET /unavailabities
   # GET /unavailabities.json
   def index
-    @unavailabities = Unavailabity.all
+    @unavailabities = Unavailabity.order(:restaurant_id).page(params[:page]).per(3)
   end
 
   # GET /unavailabities/1
@@ -64,7 +64,8 @@ class UnavailabitiesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_unavailabity
-      @unavailabity = Unavailabity.find(params[:id])
+      @unavailabity = Unavailabity.find_by_id(params[:id])
+      redirect_to unavailabities_path , notice: "day not found" if @unavailabity.blank?
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

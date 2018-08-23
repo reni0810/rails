@@ -12,15 +12,15 @@
       .container
         .navbar-brand
           %strong Restaurant
-        %button.navbar-toggler.navbar-toggler-right{"aria-controls" => "navbarResponsive", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-target" => "#navbarResponsive", "data-toggle" => "collapse", :type => "button"}
+        %button.navbar-toggler.navbar-toggler-right{"aria-controls" => "navbarResponsive", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-target" => "#navbarResponsive", "data-toggle" => "collapse", type: "button"}
           %span.navbar-toggler-icon
         #navbarResponsive.collapse.navbar-collapse
           %ul.navbar-nav.ml-auto
             - if user_signed_in?               
               %li.nav-item.active
-                = link_to 'Home', restaurants_path, :class => "nav-link"
+                = link_to 'Home', restaurants_path, class: "nav-link"
               %li.nav-item.dropdown
-                %a#navbarDropdownBlog.nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#"}
+                %a#navbarDropdownBlog.nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", href: "#"}
                   More
                 .dropdown-menu.dropdown-menu-right{"aria-labelledby" => "navbarDropdownBlog"}
                   = link_to "Add restaurant", new_restaurant_path, class: "dropdown-item"
@@ -35,12 +35,12 @@
               %li.nav-item
                 = link_to "Login", new_user_session_path, class: "nav-link"
     %header
-      #slides.carousel.slide{"data-ride" => "carousel"}
+      #slides.carousel.slide{"data-ride": "carousel"}
         %ol.carousel-indicators
-          %li.active{"data-slide-to" => "0", "data-target" => "#slides"}
-          %li{"data-slide-to" => "1", "data-target" => "#slides"}
-          %li{"data-slide-to" => "2", "data-target" => "#slides"}
-        .carousel-inner{:role => "listbox"}
+          %li.active{"data-slide-to": "0", "data-target": "#slides"}
+          %li{"data-slide-to": "1", "data-target": "#slides"}
+          %li{"data-slide-to": "2", "data-target": "#slides"}
+        .carousel-inner{role: "listbox"}
           / Slide One - Set the background image for this slide in the line below
           .carousel-item.active
             = image_tag('1.jpg',size: "1450x500", class: 'fill img-responsive')
@@ -56,10 +56,10 @@
             = image_tag('3.jpg',size: "1450x500", class: 'fill img-responsive')
             .carousel-caption.d-none.d-md-block
               %a Delicious
-        %a.carousel-control-prev{"data-slide" => "prev", :href => "#slides", :role => "button"}
+        %a.carousel-control-prev{"data-slide" => "prev", href: "#slides", role: "button"}
           %span.carousel-control-prev-icon{"aria-hidden" => "true"}
           %span.sr-only Previous
-        %a.carousel-control-next{"data-slide" => "next", :href => "#slides", :role => "button"}
+        %a.carousel-control-next{"data-slide" => "next", href: "#slides", role: "button"}
           %span.carousel-control-next-icon{"aria-hidden" => "true"}
           %span.sr-only Next
     - if notice

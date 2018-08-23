@@ -1,11 +1,11 @@
 .nested-fields
-  = f.select("cuisine_id",Cuisine.all.collect{|c| [c.name,c.id] },{},{class: "form-control"})
+  = f.select("cuisine_id",Cuisine.all.collect{|c| [c.name,c.id] },{include_blank: "select cuisines"},{class: "form-control dependent-load", id: 'cuisine_id', data: {url:"/select_recipe?cuisine_id=" , target:"recipe_id" }})
   = link_to_remove_association "remove cuisine", f
-  .recipe
-    %p
-      %strong Recipe:
-    .recipes
-      = f.fields_for :restaurants_cuisines_recipes do |recipe|
-        = render 'restaurants_cuisines_recipe_fields',f: recipe
-      .links
-        = link_to_add_association 'add recipe', f, :restaurants_cuisines_recipes, class: "text-success"
+.recipe
+  %p
+    %strong Recipe:
+  .recipes
+    = f.fields_for :restaurants_cuisines_recipes do |recipe|
+      = render 'restaurants_cuisines_recipe_fields',f: recipe
+    .links
+      = link_to_add_association 'add recipe', f, :restaurants_cuisines_recipes, class: "text-success"

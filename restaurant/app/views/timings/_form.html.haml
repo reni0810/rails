@@ -7,17 +7,30 @@
       %ul
         - timing.errors.full_messages.each do |message|
           %li= message
-  .field
-    = form.label :restaurant_id
-    = form.select("restaurant_id", Restaurant.all.collect {|r| [r.name,r.id] })
-  .field
-    = form.label :day
-    = form.text_field :day
-  .field
-    = form.label :start_time
-    = form.time_select :start_time
-  .field
-    = form.label :end_time
-    = form.time_select :end_time
-  .actions
-    = form.submit
+  .container
+    .row
+      .col-sm-11.col-md-9.col-lg-7.mx-auto
+        .card.my-5
+          .card-header
+            %h5.card-title.text-center Timimgs
+          .card-body
+            %strong= form.label :restaurant_id
+            = form.select("restaurant_id", Restaurant.all.collect {|r| [r.name,r.id] },{},{class: "form-control"})
+            %strong= form.label :day
+            = form.text_field :day, class: "form-control"
+            .form-inline
+              .row
+                .col 
+                  = form.label :start_time
+                  = form.time_select :start_time, {ampm: true}, class: "form-control"
+                .col
+                  = form.label :end_time
+                  = form.time_select :end_time,{ampm: true}, class: "form-control"
+            .actions
+              %br/
+              = form.button "Create" ,class: "btn btn-lg btn-success btn-block"
+    
+
+
+
+

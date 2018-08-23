@@ -1,19 +1,39 @@
-%h1 Users
-%table
-  %thead
-    %tr
-      %th Name
-      %th Email
-      %th Mobile no
-      %th{:colspan => "3"}
-  %tbody
+.container
+  %h1.display-3 Users
+  .row
     - @users.each do |user|
-      %tr
-        %td= user.name
-        %td= user.email
-        %td= user.mobile_no
-        %td= link_to 'Show', user
-        %td= link_to 'Edit',edit_user_registration_path(user)
-        %td= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' }
-%br/
+      .col-lg-6.mb-6
+        .card.h-100
+          %h4.card-header= user.name
+          .card-body
+            %p.card-text
+              .row
+                .col-lg-6.mb-6
+                  %strong.text-success Email:
+                .col
+                  = user.email
+            %p.card-text
+              .row
+                .col-lg-6.mb-6
+                  %strong.text-success mobile no.:
+                .col
+                  = user.mobile_no
+          .card-footer
+            .row
+              .col
+                = link_to 'Show', user
+              .col
+                = link_to 'Edit', edit_user_registration_path(user)
+              .col
+                = link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' }
+  %br
+  .pagination.justify-content-center
+    = paginate @users
+
 = link_to 'New User', new_user_registration_path
+
+
+
+
+
+

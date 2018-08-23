@@ -1,21 +1,35 @@
-%h1 Timings
-%table
-  %thead
-    %tr
-      %th Restaurant
-      %th Day
-      %th Start time
-      %th End time
-      %th{:colspan => "3"}
-  %tbody
+.container
+  %h1.display-3 Timing
+  .row
     - @timings.each do |timing|
-      %tr
-        %td= timing.restaurant.name
-        %td= timing.day
-        %td= timing.start_time.strftime('%H:%M %p')
-        %td= timing.end_time.strftime('%H:%M %p')
-        %td= link_to 'Show', timing
-        %td= link_to 'Edit', edit_timing_path(timing)
-        %td= link_to 'Destroy', timing, method: :delete, data: { confirm: 'Are you sure?' }
-%br/
+      .col-lg-4.mb-4
+        .card.h-100
+          %h4.card-header= timing.restaurant.name
+          .card-body
+            %p.card-text
+              .row
+                .col-lg-6.mb-6
+                  %strong.text-success= timing.day
+                .col
+                  = timing.start_time.strftime('%H:%M %p')
+                  to
+                  = timing.end_time.strftime('%H:%M %p')
+          .card-footer
+            .row
+              .col
+                = link_to 'Show', timing
+              .col
+                = link_to 'Edit',  edit_timing_path(timing)
+              .col
+                = link_to 'Destroy', timing, method: :delete, data: { confirm: 'Are you sure?' }
+  %br
+  .pagination.justify-content-center
+    = paginate @timings
+
 = link_to 'New Timing', new_timing_path
+
+
+
+
+
+

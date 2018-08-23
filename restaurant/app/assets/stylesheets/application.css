@@ -1,4 +1,6 @@
 /*
-  *= require bootstrap.min.css
+	*= require jquery-ui
+  *= require bootstrap/bootstrap-datepicker.css
+	*= require bootstrap/bootstrap.min.css
   *= require style.css
 */

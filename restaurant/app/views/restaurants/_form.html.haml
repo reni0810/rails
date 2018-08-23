@@ -40,10 +40,10 @@
                   = render 'unavailabity_fields',f: unavailable
                 .links
                   = link_to_add_association 'add unavailable day', form, :unavailabities,class: "text-success"
-            .cusine
+            .cuisine
               %p
                 %strong Cuisine:
-              .cuisine
+              #cuisines
                 = form.fields_for :restaurants_cuisines do |cuisine|
                   = render 'restaurants_cuisine_fields',f: cuisine
                 .links

@@ -1,19 +1,30 @@
-%h1 Recipes
-%table
-  %thead
-    %tr
-      %th Cuisine
-      %th Name
-      %th Description
-      %th{:colspan => "3"}
-  %tbody
+.container
+  %h1.display-3 Recipes
+  .row
     - @recipes.each do |recipe|
-      %tr
-        %td= recipe.cuisine.name
-        %td= recipe.name
-        %td= recipe.description
-        %td= link_to 'Show', recipe
-        %td= link_to 'Edit', edit_recipe_path(recipe)
-        %td= link_to 'Destroy', recipe, method: :delete, data: { confirm: 'Are you sure?' }
-%br/
+      .col-lg-4.mb-4
+        .card.h-100
+          %h4.card-header= recipe.cuisine.name
+          .card-body
+            %p.card-text
+              .row
+                .col-lg-6.mb-6
+                  %strong.text-success= recipe.name
+                .col
+                  = recipe.description
+          .card-footer
+            .row
+              .col
+                = link_to 'Show', recipe
+              .col
+                = link_to 'Edit',  edit_recipe_path(recipe)
+              .col
+                = link_to 'Destroy', recipe, method: :delete, data: { confirm: 'Are you sure?' }
+  %br
+  .pagination.justify-content-center
+    = paginate @recipes
+
 = link_to 'New Recipe', new_recipe_path
+
+
+

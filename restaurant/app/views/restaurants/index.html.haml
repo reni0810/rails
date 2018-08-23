@@ -2,22 +2,24 @@
   %h1.display-3 Restaurants
   .form-inline
     = form_with(url: restaurants_path,method: 'get' ,local: true) do |f|
-      =f.select("cuisine_id",Cuisine.all.collect{ |c| [c.name,c.id] },{include_blank: "select cuisines", selected: @search_cuisine },{ class: "form-control" })
+      =f.select("cuisine_id", Cuisine.all.collect{|c| [c.name,c.id]}, {include_blank: "select cuisines", selected: @search_cuisine}, {class: "form-control dependent-load", id: 'cuisine_id', data: {url:"/select_recipe?cuisine_id=" , target:"recipe_id" }})
+      = f.select("recipe_id"," ",{include_blank:"select recipe" },{ class: "form-control", id: 'recipe_id' })
       = f.select("facility_id",Facility.all.collect{ |f| [f.name,f.id] },{include_blank:"select facility", selected: @search_facility },{ class: "form-control" })
-      = f.text_field :search, id: :search, value: params[:search], class: "search form-control", placeholder: "search"
+      =f.text_field :date, class: "form-control", id: "datepicker", placeholder: "select unavailable date"
+      = f.text_field :search, value: params[:search], class: "search form-control  autocomplete", placeholder: "search", autocomplete: "off",data:{url: "/references"}
       = f.submit "search", class: "btn btn-success"
   %br
   -if @restaurants.empty?
     %h2= "No record found"
   -else
     .row
-      - @restaurants.each do |restaurant|
+      - @restaurants.each_with_index do |restaurant,index|
         .col-lg-6.mb-6
           .card.h-100
             %h4.card-header= restaurant.name
             .card-body
               - if restaurant.picture.attached?
-                = image_tag restaurant.picture.variant(resize: "500x500"),class: 'img-responsive'
+                = image_tag restaurant.picture,class: 'img-responsivev img-fluid'
               %p.card-text
                 .row.container
                   .col-lg-4.mb-4
@@ -51,15 +53,18 @@
                         \:
                         - cuisines.recipes.each do |recipes|
                           = recipes.name
-                %p.card-text
-                  .row.container
-                    .col-lg-4.mb-4
-                      %strong.text-success unavailable Date:
-                    .col
-                      - restaurant. unavailabities.each do |unavailable|
-                        %p.card-text>= unavailable.date
-                        Timing:
-                        \#{unavailable.start_time.strftime('%H:%M %p')} to #{unavailable.end_time.strftime('%H:%M %p')}
+                          \(
+                          = recipes.description
+                          \)
+              %p.card-text
+                .row.container
+                  .col-lg-4.mb-4
+                    %strong.text-success unavailable Date:
+                  .col
+                    - restaurant. unavailabities.each do |unavailable|
+                      %p.card-text>= unavailable.date
+                      Timing:
+                      \#{unavailable.start_time.strftime('%H:%M %p')} to #{unavailable.end_time.strftime('%H:%M %p')}
               %p.card-text
                 .row.container
                   - restaurant.facilities.each do |facility|
@@ -71,6 +76,8 @@
                           = facility.name
                           \:
                           \#{facility.description}
+              %p.card-text#email
+                %a#add_mail{id: index} send me in my mail
             - if restaurant.user_id == current_user.id
               .card-footer
                 .row
@@ -83,4 +90,3 @@
   %br
   .pagination.justify-content-center
     = paginate @restaurants
-

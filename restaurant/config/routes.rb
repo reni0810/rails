@@ -21,7 +21,12 @@ Rails.application.routes.draw do
   resources :timings
   resources :restaurants, path: "restaurant_details" do
     get :index, on: :collection
+    get "/sendmail", to: "restaurants#sendmail"
+    post "/sendmail", to:"restaurants#index"
   end
+  get '/select_recipe', to:"restaurants#select_recipe"
+  get '/references', to:"restaurants#references"
+
   resources :unavailabities
   resources :users
   resources :facilities

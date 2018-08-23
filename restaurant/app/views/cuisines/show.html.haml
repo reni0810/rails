@@ -1,9 +1,17 @@
-%p
-  %strong Name:
-  = @cuisine.name
-%p
-  %strong Description:
-  = @cuisine.description
-= link_to 'Edit', edit_cuisine_path(@cuisine)
-|
-= link_to 'Back', cuisines_path
+.container
+  %h1.display-3 cuisine
+  .row
+    .col-lg-4.mb-4
+      .card.h-100
+        %h4.card-header= @cuisine.name
+        .card-body
+          %p.card-text
+            .row.container
+              .col-lg-6.mb-6
+                %strong.text-success description:
+              .col
+                = @cuisine.description
+        .card-footer
+          = link_to 'Edit', edit_cuisine_path(@cuisine)
+          |
+          = link_to 'Back', cuisines_path

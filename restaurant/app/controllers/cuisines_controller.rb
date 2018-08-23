@@ -4,7 +4,7 @@ class CuisinesController < ApplicationController
   # GET /cuisines
   # GET /cuisines.json
   def index
-    @cuisines = Cuisine.all
+    @cuisines = Cuisine.order(:name).page(params[:page]).per(3)
   end
 
   # GET /cuisines/1
@@ -64,7 +64,8 @@ class CuisinesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_cuisine
-      @cuisine = Cuisine.find(params[:id])
+      @cuisine = Cuisine.find_by_id(params[:id])
+      redirect_to cuisines_path , notice: "cuisines not found" if @cuisine.blank?
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

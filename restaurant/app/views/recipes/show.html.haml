@@ -1,9 +1,19 @@
-%p
-  %strong Name:
-  = @recipe.name
-%p
-  %strong Description:
-  = @recipe.description
-= link_to 'Edit', edit_recipe_path(@recipe)
-|
-= link_to 'Back', recipes_path
+.container
+  %h1.display-4 Recipe
+  .row
+    .col-lg-4.mb-4
+      .card.h-100
+        %h4.card-header= @recipe.name
+        .card-body
+          %p.card-text
+            .row
+              .col-lg-6.mb-6
+                %strong.text-success description:
+              .col
+                = @recipe.description
+        .card-footer
+          = link_to 'Edit', edit_recipe_path(@recipe)
+          |
+          = link_to 'Back', recipes_path
+
+

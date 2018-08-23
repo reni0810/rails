@@ -4,7 +4,7 @@ class TimingsController < ApplicationController
   # GET /timings
   # GET /timings.json
   def index
-    @timings = Timing.all
+    @timings = Timing.order(:restaurant_id).page(params[:page]).per(3)
   end
 
   # GET /timings/1
@@ -64,7 +64,8 @@ class TimingsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_timing
-      @timing = Timing.find(params[:id])
+      @timing = Timing.find_by_id(params[:id])
+      redirect_to timings_path , notice: "timing not found" if @timing.blank?
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

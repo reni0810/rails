@@ -1,6 +1,6 @@
 body {
   font-family: 'Lora', 'Times New Roman', serif;
-  font-size: 20px;
+  font-size: 19px;
   padding-top: 54px;
 }
 @media (min-width: 992px) {
@@ -8,6 +8,12 @@ body {
     padding-top: 56px;
   }
 }
+
+.card-body .img-responsive{
+  max-width: 100%;
+  height: auto;
+}
+
 .carousel-item {
   height: 65vh;
   min-height: 300px;

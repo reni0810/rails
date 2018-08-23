@@ -4,7 +4,7 @@ class RecipesController < ApplicationController
   # GET /recipes
   # GET /recipes.json
   def index
-    @recipes = Recipe.all
+    @recipes = Recipe.order(:name).page(params[:page]).per(3)
   end
 
   # GET /recipes/1
@@ -64,7 +64,8 @@ class RecipesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_recipe
-      @recipe = Recipe.find(params[:id])
+      @recipe = Recipe.find_by_id(params[:id])
+      redirect_to  recipes_path , notice: "recipe not found" if @recipe.blank?
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

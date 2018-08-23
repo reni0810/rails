@@ -1,15 +1,21 @@
-%p
-  %strong Date:
-  = @unavailabity.date
-%p
-  %strong Start time:
-  = @unavailabity.start_time
-%p
-  %strong End time:
-  = @unavailabity.end_time
-%p
-  %strong Full day:
-  = @unavailabity.full_day
-= link_to 'Edit', edit_unavailabity_path(@unavailabity)
-|
-= link_to 'Back', unavailabities_path
+.container
+  %h1.display-3 Unavailable day
+  .row
+    .col-lg-4.mb-4
+      .card.h-100
+        %h4.card-header= @unavailabity.restaurant.name
+        .card-body
+          %p.card-text
+            .row.container
+              .col-lg-6.mb-6
+                %strong.text-success= @unavailabity.date
+              .col
+                = @unavailabity.start_time.strftime("%H:%M %p")
+                to
+                = @unavailabity.end_time.strftime("%H:%M %p")
+        .card-footer
+          = link_to 'Edit', edit_unavailabity_path(@unavailabity)
+          |
+          = link_to 'Back', unavailabities_path
+
+

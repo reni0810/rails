@@ -50,21 +50,6 @@ document.addEventListener("turbolinks:load", function() {
       source: $(this).data('url')
     });
   });
+  
 });
 
-
-// function select_recipe(){
-//   console.log($("#cuisine_id").val());
-//    var url;
-//    if($("#cuisine_id").val() != ""){
-//      url = "/select_recipe?cuisine_id=" + $("#cuisine_id").val();
-//      $("#recipe_id").empty()
-//      $.get(url, function(datas){
-//        if(datas){
-//          $.each(datas,function(index, value){
-//            $("#recipe_id").append("<option value ='" + value['id'] +"'>"+ value['name']+ "</option>");
-//          })
-//        }
-//      });
-//    }
-// }

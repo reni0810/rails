@@ -4,28 +4,28 @@ class RestaurantsController < ApplicationController
   # GET /restaurants
   # GET /restaurants.json
   def index
-    if params[:search].present? || params[:cuisine_id].present? || params[:facility_id].present? || params[:date].present? 
+    if params[:search].present? || params[:cuisine_id].present? || params[:recipe_id] || params[:facility_id].present? || params[:date].present? 
       @search_cuisine = params[:cuisine_id]
       @search_facility = params[:facility_id]
-      @restaurants = Restaurant.joins(:cuisines,:facilities,:unavailabities)
-                    .where('(restaurants.name LIKE ? OR restaurants.address LIKE ?) AND restaurants_cuisines.cuisine_id LIKE ? AND restaurants_facilities.facility_id LIKE ? AND unavailabities.date LIKE ?', "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:cuisine_id]}%","%#{params[:facility_id]}%", "%#{params[:date]}%" )
+      @search_recipe = params[:recipe_id]
+      @restaurants = Restaurant.joins(:cuisines,:facilities,:unavailabities).includes(cuisines: :recipes)
+                    .where('(restaurants.name LIKE ? OR restaurants.address LIKE ?) AND restaurants_cuisines.cuisine_id LIKE ? AND restaurants_facilities.facility_id LIKE ? AND unavailabities.date LIKE ?', "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:cuisine_id]}%", "%#{params[:facility_id]}%", "%#{params[:date]}%" )
     else
       @restaurants = Restaurant.all
     end
     @restaurants = @restaurants.order(:name).page(params[:page]).per(2)
+    @restaurants_details = Restaurant.all.map{ |r| {name: r.name, address: r.address, image: url_for(r.picture)}}
+    @latlong = Restaurant.all.map{ |l| {:lat => l.latitude, :long => l.longitude}}
   end
 
   def select_recipe
-    puts "*****************************************************************"
-
     @cuisine = Cuisine.find_by(id: params[:cuisine_id])
     data = Recipe.where(cuisine_id: @cuisine.id).uniq
     render json: data
   end
 
   def references
-    puts "*****************************************************************"
-    references =  Restaurant.all.pluck(:name)
+    references =  Restaurant.where('name LIKE ?',"%#{params[:term]}%").pluck(:name)
     render json: references, status: :ok
   end
 

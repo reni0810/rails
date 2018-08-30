@@ -1,6 +1,8 @@
 .container
   .row
-    %h1.display-3 Restaurants 
+    %h1.display-3 Restaurants
+    = link_to 'terms&conditions', terms_conditions_path
+    = link_to 'privacy&polices', privacy_polices_path
   %ul.nav
     %li.nav-item
       %a.nav-link.active{"data-toggle": "tab", href: "#list", class: "btn btn-primary"} List
@@ -19,8 +21,8 @@
   -if @restaurants.empty?
     %h2= "No record found"
   -else
-    .tab-content 
-      #list.container.tab-pane.active  
+    .tab-content
+      #list.container.tab-pane.active
         .row
           - @restaurants.each_with_index do |restaurant,index|
             .col-lg-6.mb-6
@@ -94,8 +96,7 @@
                               \:
                               \#{facility.description}
 
-                  %p.card-text#email
-                    %a#add_mail{id: index} send me in my mail
+
                 - if restaurant.user_id == current_user.id
                   .card-footer
                     .row
@@ -109,9 +110,9 @@
         .pagination.justify-content-center
           = paginate @restaurants
 
-      #map.container.tab-pane.fade     
-        #map          
-  
+      #map.container.tab-pane.fade
+        #map
+
 :javascript
   function initMap(){
     var bounds = new google.maps.LatLngBounds();
@@ -123,25 +124,24 @@
 
     for(i=0; i<latlongs.length;i++)
     {
-      restaurants[i] = '<div class= "information">' + 
+      restaurants[i] = '<div class= "information">' +
                   '<h3>' + restaurants_details[i]["name"] + '</h3>' +
                   '<img src= '+ restaurants_details[i]["image"] +' height="120" width="200">' +
                   '<p>' + restaurants_details[i]["address"] + '</p>' + '</div>'
       var position = new google.maps.LatLng(latlongs[i]["lat"], latlongs[i]["long"]);
       bounds.extend(position);
-      
       marker = new google.maps.Marker({
         position: position,
         map: map,
-        title: restaurants_details[i]["name"]
+        title: restaurants_details[i]["name"],
       });
       map.fitBounds(bounds);
 
       google.maps.event.addListener(marker, 'click', (function(marker, i){
-            return function() {
-              infoWindow.setContent(restaurants[i]);
-              infoWindow.open(map, marker);
-            }
+          return function() {
+            infoWindow.setContent(restaurants[i]);
+            infoWindow.open(map, marker);
+          }
         })(marker, i));
     }
 
@@ -150,4 +150,4 @@
         google.maps.event.removeListener(boundsListener);
     });
   }
-%script{src: "https://maps.google.com/maps/api/js?&key=AIzaSyA8r7izzgRiYYIac1y1eKNmP4sIqB5FM84&callback=initMap"} 
+%script{src: "https://maps.google.com/maps/api/js?&key=AIzaSyAiJNfed7HBLMu23iVILURSuQ7Sw15aO4s&callback=initMap"}

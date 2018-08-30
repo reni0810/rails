@@ -4,17 +4,16 @@ class RestaurantsController < ApplicationController
   # GET /restaurants
   # GET /restaurants.json
   def index
-    if params[:search].present? || params[:cuisine_id].present? || params[:recipe_id] || params[:facility_id].present? || params[:date].present? 
+    if params[:search].present? || params[:cuisine_id].present? || params[:recipe_id] || params[:facility_id].present? || params[:date].present?
       @search_cuisine = params[:cuisine_id]
       @search_facility = params[:facility_id]
       @search_recipe = params[:recipe_id]
       @restaurants = Restaurant.joins(:cuisines,:facilities,:unavailabities).includes(cuisines: :recipes)
-                    .where('(restaurants.name LIKE ? OR restaurants.address LIKE ?) AND restaurants_cuisines.cuisine_id LIKE ? AND restaurants_facilities.facility_id LIKE ? AND unavailabities.date LIKE ?', "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:cuisine_id]}%", "%#{params[:facility_id]}%", "%#{params[:date]}%" )
+                    .where('(restaurants.name LIKE ? OR restaurants.address LIKE ?) AND restaurants_cuisines.cuisine_id LIKE ? AND restaurants_facilities.facility_id LIKE ? AND unavailabities.date LIKE ?', "%#{params[:search]}%", "%#{params[:search]}%", "%#{params[:cuisine_id]}%", "%#{params[:facility_id]}%", "%#{params[:date]}%" ).order(:name).page(params[:page]).per(2)
     else
-      @restaurants = Restaurant.all
+      @restaurants = Restaurant.order(:name).page(params[:page]).per(2)
     end
-    @restaurants = @restaurants.order(:name).page(params[:page]).per(2)
-    @restaurants_details = Restaurant.all.map{ |r| {name: r.name, address: r.address, image: url_for(r.picture)}}
+    @restaurants_details = Restaurant.all.map{ |r| {name: r.name, address: r.address, image: r.picture.attached? ? url_for(r.picture) : nil}}
     @latlong = Restaurant.all.map{ |l| {:lat => l.latitude, :long => l.longitude}}
   end
 
@@ -32,7 +31,7 @@ class RestaurantsController < ApplicationController
   def send_mail
     if params[:send_mail]
       @user_mail = params[:send_mail]
-      SendRestaurantMailer.with(user: @user_mail).restaurant.deliver_later  
+      SendRestaurantMailer.with(user: @user_mail).restaurant.deliver_later
     end
   end
 
@@ -53,8 +52,7 @@ class RestaurantsController < ApplicationController
   # POST /restaurants
   # POST /restaurants.json
   def create
-    @restaurant = Restaurant.new(restaurant_params)
-    @restaurant.user_id = current_user.id
+    @restaurant = current_user.restaurants.new(restaurant_params)
     respond_to do |format|
       if @restaurant.save
         format.html { redirect_to @restaurant, notice: 'Restaurant was successfully created.' }
@@ -105,7 +103,7 @@ class RestaurantsController < ApplicationController
         unavailabities_attributes:
         [:id, :date, :start_time, :end_time, :full_day, :_destroy],
         restaurants_cuisines_attributes:
-        [:id,:restaurant_id, :cuisine_id,:_destroy, restaurants_cuisines_recipes_attributes: [:id, :restaurants_cuisine_id, :recipe_id,:_destroy]],
+        [:id, :cuisine_id,:_destroy, restaurants_cuisines_recipes_attributes: [:id, :restaurants_cuisine_id, :recipe_id,:_destroy]],
         restaurants_facilities_attributes:
         [:id, :restaurant_id, :facility_id,:_destroy])
 

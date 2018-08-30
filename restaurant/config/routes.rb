@@ -33,6 +33,8 @@ Rails.application.routes.draw do
   resources :recipes
   resources :cuisines
   resources :user_restaurants,  only: [:index]
+  get '/terms-conditions', to:"static_pages#terms_conditions"
+  get '/privacy_polices', to:"static_pages#privacy_polices"
   get "/404", to: "application#page_error"
   get "/500", to: "application#internal_error"
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

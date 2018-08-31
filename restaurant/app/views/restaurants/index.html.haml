@@ -18,97 +18,94 @@
       = f.text_field :search, value: params[:search], class: "search form-control  autocomplete", placeholder: "search", autocomplete: "off",data:{url: "/references"}
       = f.submit "search", class: "btn btn-success"
   %br
-  -if @restaurants.empty?
-    %h2= "No record found"
-  -else
-    .tab-content
-      #list.container.tab-pane.active
-        .row
-          - @restaurants.each_with_index do |restaurant,index|
-            .col-lg-6.mb-6
-              .card.h-100
-                %h4.card-header= restaurant.name
-                .card-body
-                  - if restaurant.picture.attached?
-                    = image_tag restaurant.picture,class: 'img-responsivev img-fluid'
+  .tab-content
+    #list.container.tab-pane.active
+      .row
+        - @restaurants.each_with_index do |restaurant,index|
+          .col-lg-6.mb-6
+            .card.h-100
+              %h4.card-header= restaurant.name
+              .card-body
+                - if restaurant.picture.attached?
+                  = image_tag restaurant.picture,class: 'img-responsivev img-fluid'
 
-                  %p.card-text
-                    .row.container
-                      .col-lg-4.mb-4
-                        %strong.text-success Adress:
-                      .col
-                        = restaurant.address
-                  %p.card-text
-                    .row.container
-                      .col-lg-4.mb-4
-                        %strong.text-success latitude:
-                      .col
-                        = restaurant.latitude
-                        =restaurant.longitude
-                  %p.card-text
-                    .row.container
-                      .col-lg-4.mb-4
-                        %strong.text-success Mobile_no:
-                      .col
-                        = restaurant.mobile_no
-                  %p.card-text
-                    .row.container
-                      .col-lg-4.mb-4
-                        %strong.text-success Timing:
-                      .col
-                        - restaurant.timings.each do |timing|
+                %p.card-text
+                  .row.container
+                    .col-lg-4.mb-4
+                      %strong.text-success Adress:
+                    .col
+                      = restaurant.address
+                %p.card-text
+                  .row.container
+                    .col-lg-4.mb-4
+                      %strong.text-success latitude:
+                    .col
+                      = restaurant.latitude
+                      =restaurant.longitude
+                %p.card-text
+                  .row.container
+                    .col-lg-4.mb-4
+                      %strong.text-success Mobile_no:
+                    .col
+                      = restaurant.mobile_no
+                %p.card-text
+                  .row.container
+                    .col-lg-4.mb-4
+                      %strong.text-success Timing:
+                    .col
+                      - restaurant.timings.each do |timing|
+                        %p.card-text
+                          = timing.day
+                          \:
+                          \#{timing.start_time.strftime('%H:%M %p')} to #{timing.end_time.strftime('%H:%M %p')}
+                %p.card-text
+                  .row.container
+                    .col-lg-4.mb-4
+                      %strong.text-success Cuisines  recipes:
+                    .col
+                      - restaurant.cuisines.each do |cuisines|
+                        %p.card-text
+                          = cuisines.name
+                          \:
+                          - cuisines.recipes.each do |recipes|
+                            = recipes.name
+                            \(
+                            = recipes.description
+                            \)
+                %p.card-text
+                  .row.container
+                    .col-lg-4.mb-4
+                      %strong.text-success unavailable Date:
+                    .col
+                      - restaurant. unavailabities.each do |unavailable|
+                        %p.card-text>= unavailable.date
+                        Timing:
+                        \#{unavailable.start_time.strftime('%H:%M %p')} to #{unavailable.end_time.strftime('%H:%M %p')}
+                %p.card-text
+                  .row.container
+                    - restaurant.facilities.each do |facility|
+                      - if facility.present?
+                        .col-lg-4.mb-4
+                          %strong.text-success Facilities:
+                        .col
                           %p.card-text
-                            = timing.day
+                            = facility.name
                             \:
-                            \#{timing.start_time.strftime('%H:%M %p')} to #{timing.end_time.strftime('%H:%M %p')}
-                  %p.card-text
-                    .row.container
-                      .col-lg-4.mb-4
-                        %strong.text-success Cuisines  recipes:
-                      .col
-                        - restaurant.cuisines.each do |cuisines|
-                          %p.card-text
-                            = cuisines.name
-                            \:
-                            - cuisines.recipes.each do |recipes|
-                              = recipes.name
-                              \(
-                              = recipes.description
-                              \)
-                  %p.card-text
-                    .row.container
-                      .col-lg-4.mb-4
-                        %strong.text-success unavailable Date:
-                      .col
-                        - restaurant. unavailabities.each do |unavailable|
-                          %p.card-text>= unavailable.date
-                          Timing:
-                          \#{unavailable.start_time.strftime('%H:%M %p')} to #{unavailable.end_time.strftime('%H:%M %p')}
-                  %p.card-text
-                    .row.container
-                      - restaurant.facilities.each do |facility|
-                        - if facility.present?
-                          .col-lg-4.mb-4
-                            %strong.text-success Facilities:
-                          .col
-                            %p.card-text
-                              = facility.name
-                              \:
-                              \#{facility.description}
+                            \#{facility.description}
 
 
-                - if restaurant.user_id == current_user.id
-                  .card-footer
-                    .row
-                      .col
-                        = link_to 'Show', restaurant
-                      .col
-                        = link_to 'Edit', edit_restaurant_path(restaurant)
-                      .col
-                        = link_to 'Destroy', restaurant, method: :delete, data: { confirm: 'Are you sure?' }
-        %br
-        .pagination.justify-content-center
-          = paginate @restaurants
+              - if restaurant.user_id == current_user.id
+                .card-footer
+                  .row
+                    .col
+                      = link_to 'Show', restaurant
+                    .col
+                      = link_to 'Edit', edit_restaurant_path(restaurant)
+                    .col
+                      = link_to 'Destroy', restaurant, method: :delete, data: { confirm: 'Are you sure?' }
+      %br
+      .pagination.justify-content-center
+        = paginate @restaurants
 
       #map.container.tab-pane.fade
         #map

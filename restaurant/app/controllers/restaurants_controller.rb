@@ -4,22 +4,15 @@ class RestaurantsController < ApplicationController
   # GET /restaurants
   # GET /restaurants.json
   def index
-    # search = {}
-    # search[:name] = params[:search] if params[:search].present?
-    # if search.empty?
-    #   @restaurants = Restaurant.order(:name).page(params[:page]).per(2)
-    # else
-    #   @restaurants = Restaurant.where(search).order(:name).page(params[:page]).per(2)
-    # end
-
-    if params[:search].present? || params[:cuisine_id].present? || params[:recipe_id] || params[:facility_id].present? || params[:date].present?
-      @search_cuisine = params[:cuisine_id]
-      @search_facility = params[:facility_id]
-      @search_recipe = params[:recipe_id]
-      @restaurants = Restaurant.left_outer_joins(:restaurants_cuisines,:restaurants_facilities,:unavailabities)
-                     .where('name LIKE ?  or restaurants_cuisines.cuisine_id = ? or restaurants_facilities.facility_id = ? or unavailabities.date = ?', params[:search], params[:cuisine_id], params[:facility_id], params[:date] ).order(:name).page(params[:page]).per(2)
-    else
+    search = {}
+    search[:name] = params[:search] if params[:search].present?
+    search[:"restaurants_cuisines.cuisine_id"] = params[:cuisine_id] if params[:cuisine_id].present?
+    search[:"restaurants_facilities.facility_id"] = params[:facility_id] if params[:facility_id].present?
+    search[:"unavailabities.date"] = params[:date] if params[:date].present?
+    if search.empty?
       @restaurants = Restaurant.order(:name).page(params[:page]).per(2)
+    else
+      @restaurants = Restaurant.left_outer_joins(:restaurants_cuisines,:restaurants_facilities,:unavailabities).where(search).order(:name).page(params[:page]).per(2)
     end
     @restaurants_details = Restaurant.all.map{ |r| {name: r.name, address: r.address, image: r.picture.attached? ? url_for(r.picture) : nil}}
     @latlong = Restaurant.all.map{ |l| {:lat => l.latitude, :long => l.longitude}}

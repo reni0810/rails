@@ -16,15 +16,22 @@
           %span.navbar-toggler-icon
         #navbarResponsive.collapse.navbar-collapse
           %ul.navbar-nav.ml-auto
-            - if user_signed_in?               
+            - if user_signed_in?
               %li.nav-item.active
                 = link_to 'Home', restaurants_path, class: "nav-link"
               %li.nav-item.dropdown
-                %a#navbarDropdownBlog.nav-link.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", href: "#"}
+                %a#navbarDropdownBlog.nav-link.dropdown-toggle{"data-toggle" => "dropdown"}
                   More
-                .dropdown-menu.dropdown-menu-right{"aria-labelledby" => "navbarDropdownBlog"}
+                .dropdown-menu
                   = link_to "Add restaurant", new_restaurant_path, class: "dropdown-item"
                   = link_to "My restaurant", user_restaurants_path, class: "dropdown-item", id: :myrestaurant
+                  - if current_user.role?
+                    = link_to "Cuisines", cuisines_path, class: "dropdown-item"
+                    = link_to "Recipes", recipes_path, class: "dropdown-item"
+                    = link_to "Users", users_path, class: "dropdown-item"
+                    = link_to "Facilities", facilities_path, class: "dropdown-item"
+
+
               %li.nav-item
                 = link_to 'Edit profile', edit_user_registration_path, class: "nav-link"
               %li.nav-item

@@ -29,6 +29,8 @@
             .field
               = f.label :password_confirmation
               = f.password_field :password_confirmation, autocomplete: "off", class: 'form-control'
+            %strong= f.label :admin?
+            = f.check_box :role
             .actions
               = f.button "sign up" ,:class => "btn btn-lg btn-primary btn-block"
         .card-footer

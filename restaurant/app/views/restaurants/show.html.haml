@@ -60,7 +60,7 @@
                       = facility.name
                       \:
                       \#{facility.description}
-          = image_tag( "http://maps.googleapis.com/maps/api/staticmap?center=#{@restaurant.latitude},#{@restaurant.longitude}&markers=#{@restaurant.latitude},#{@restaurant.longitude}&zoom=16&size=640x400&key=AIzaSyA4BHW3txEdqfxzdTlPwaHsYRSZbfeIcd8",class: 'img-fluid img-rounded', alt: "#{@restaurant.name} on the map")
+        
         .card-footer
           = link_to 'Edit', edit_restaurant_path(@restaurant)
           |

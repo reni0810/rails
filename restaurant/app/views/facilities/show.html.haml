@@ -1,9 +1,17 @@
-%p
-  %strong Name:
-  = @facility.name
-%p
-  %strong Description:
-  = @facility.description
-= link_to 'Edit', edit_facility_path(@facility)
-|
-= link_to 'Back', facilities_path
+.container
+  %h1.display-3 Facility
+  .row
+    .col-lg-4.mb-4
+      .card.h-100
+        %h4.card-header= @facility.name
+        .card-body
+          %p.card-text
+            .row.container
+              .col-lg-6.mb-6
+                %strong.text-success description:
+              .col
+                = @facility.description
+        .card-footer
+          = link_to 'Edit', edit_facility_path(@facility)
+          |
+          = link_to 'Back', facilities_path

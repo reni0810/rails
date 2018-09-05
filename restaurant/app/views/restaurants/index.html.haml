@@ -11,10 +11,10 @@
   %br
   .form-inline
     = form_with(url: restaurants_path,method: 'get' ,local: true) do |f|
-      =f.select("cuisine_id", Cuisine.all.collect{|c| [c.name,c.id]}, {include_blank: "select cuisines", selected: @search_cuisine}, {class: "form-control dependent-load", id: 'cuisine_id', data: {url:"/select_recipe?cuisine_id=" , target:"recipe_id" }})
+      =f.select("cuisine_id", Cuisine.all.collect{|c| [c.name,c.id]}, {include_blank: "select cuisines", selected: params[:cuisine_id]}, {class: "form-control dependent-load", id: 'cuisine_id', data: {url:"/select_recipe?cuisine_id=" , target:"recipe_id" }})
       = f.select("recipe_id"," ",{include_blank:"select recipe", selected: @search_recipe },{ class: "form-control", id: 'recipe_id' })
-      = f.select("facility_id",Facility.all.collect{ |f| [f.name,f.id] },{include_blank:"select facility", selected: @search_facility },{ class: "form-control" })
-      =f.text_field :date, class: "form-control", id: "datepicker", placeholder: "select unavailable date"
+      = f.select("facility_id",Facility.all.collect{ |f| [f.name,f.id] },{include_blank:"select facility", selected: params[:facility_id] },{ class: "form-control" })
+      =f.text_field :date,value: params[:date], class: "form-control", id: "datepicker", placeholder: "select unavailable date"
       = f.text_field :search, value: params[:search], class: "search form-control  autocomplete", placeholder: "search", autocomplete: "off",data:{url: "/references"}
       = f.submit "search", class: "btn btn-success"
   %br
@@ -97,7 +97,7 @@
                               \#{facility.description}
 
 
-                - if restaurant.user_id == current_user.id
+                - if restaurant.user_id == current_user.id || current_user.role?
                   .card-footer
                     .row
                       .col
@@ -150,4 +150,4 @@
         google.maps.event.removeListener(boundsListener);
     });
   }
-%script{src: "https://maps.google.com/maps/api/js?&key=AIzaSyAiJNfed7HBLMu23iVILURSuQ7Sw15aO4s&callback=initMap"}
+%script{src: "https://maps.google.com/maps/api/js?&key=AIzaSyA8r7izzgRiYYIac1y1eKNmP4sIqB5FM84&callback=initMap"}

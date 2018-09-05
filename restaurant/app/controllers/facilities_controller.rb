@@ -4,7 +4,7 @@ class FacilitiesController < ApplicationController
   # GET /facilities
   # GET /facilities.json
   def index
-    @facilities = Facility.all
+    @facilities = Facility.order(:name).page(params[:page]).per(3)
   end
 
   # GET /facilities/1
